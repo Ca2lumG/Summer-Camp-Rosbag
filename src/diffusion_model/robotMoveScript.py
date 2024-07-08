@@ -32,6 +32,19 @@ class SawyerEnv():
         # Start the camera
         #self.pipeline.start(self.config)
         self.rate = rospy.Rate(10)
+
+        rospy.Subscriber('/bariflex', String, self.callback_fn)
+
+    def callback_fn(self, msg):
+        # TODO : self.bariflex_state = ...
+        return None
+
+    def get_bariflex_state(self):
+        return self.bariflex_state
+
+    
+
+    
     
     # closes the camera
     def reset(self):
