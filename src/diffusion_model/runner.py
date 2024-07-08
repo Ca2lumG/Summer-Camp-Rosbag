@@ -57,21 +57,27 @@ class Runner():
         self.nets.eval()
 
     def get_current_state(self):
-        endpoint_pose = self.limb.endpoint_pose()
-        pose, orientation = endpoint_pose["position"], endpoint_pose["orientation"]
+        # endpoint_pose = self.limb.endpoint_pose()
+        # pose, orientation = endpoint_pose["position"], endpoint_pose["orientation"]
 
-        pose = torch.tensor(list(pose)).reshape(1, -1)
-        orientation = torch.tensor(list(orientation)).reshape(1, -1)
+        # pose = torch.tensor(list(pose)).reshape(1, -1)
+        # orientation = torch.tensor(list(orientation)).reshape(1, -1)
 
-        image = torch.from_numpy(self.camera.get_frame()).float()
-        image = image.reshape(3, 640, 480)
+        image_color = torch.from_numpy(self.camera.get_frame()).float()
+        image_color = image_color.reshape(3, 640, 480)
+
+        image_depth = torch.from_numpy(self.camera.get_frame()).float()
+        image_depth = image_depth.reshape(3, 640, 480)
 
         transform = torchvision.transforms.Resize((96, 96),
               interpolation=torchvision.transforms.InterpolationMode.BILINEAR)
         
-        image = transform(image)
+        image_color = transform(image_color)
+        image_depth = transform(image_depth)
 
-        return pose, orientation, image
+        gripper_pos = SawyerEnv.get_bariflex_state(self)
+
+        return image_color, image_depth, gripper_pos
 
     def get_starting_arrays(self):
         pose, orientation, image = self.get_current_state()
