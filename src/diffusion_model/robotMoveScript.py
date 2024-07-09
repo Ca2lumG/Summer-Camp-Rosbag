@@ -109,6 +109,11 @@ def run_episode(policy, env):
 if __name__ == '__main__':
     env = SawyerEnv()
 
+    rospy.init_node('image_subscriber_node', anonymous = True)
+    rospy.Subscriber('/camera/color/image_raw', Image, color_image_callback)
+    rospy.Subscriber('/camera/aligned_depth_to_color/image_raw', Image, depth_image_callback)
+    rospy.Subscriber('/bariflex', String, callback_fn)
+    
     rate = rospy.Rate(10)
     tempVar = env.limb.endpoint_pose()["position"]
     tempVar2 = env.limb.endpoint_pose()["orientation"]
