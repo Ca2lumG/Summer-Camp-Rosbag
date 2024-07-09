@@ -76,8 +76,8 @@ class Runner():
         image_depth = transform(image_depth)
 '''
         #gripper_pos = SawyerEnv.get_bariflex_state(self)
-        gripper_pos = self.callback_fn()
-        image_color, image_depth = self.receiveImage()
+        gripper_pos = self.env.get_bariflex_state()
+        image_color, image_depth = self.env.receive_image()
 
         my_dict = {'image_color' : image_color, 'image_depth' : image_depth, 'gripper_pos' : gripper_pos}
 
