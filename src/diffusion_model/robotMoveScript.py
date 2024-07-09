@@ -23,7 +23,7 @@ class SawyerEnv():
         self.tip_name = "right_hand"
 
         rospy.Subscriber('/bariflex',String, self.callback_fn)
-         rospy.init_node('image_subscriber_node', anonymous = True)
+        rospy.init_node('image_subscriber_node', anonymous = True)
         rospy.Subscriber('/camera/color/image_raw', Image, color_image_callback)
         rospy.Subscriber('/camera/aligned_depth_to_color/image_raw', Image, depth_image_callback)
         rospy.Subscriber('/bariflex', String, callback_fn)
@@ -75,6 +75,7 @@ class SawyerEnv():
     
     # referred to this: https://github.com/IntelRealSense/librealsense/blob/master/wrappers/python/examples/opencv_viewer_example.py
     def receieve_image(self):
+        
         # Wait for a coherent pair of frames: depth and color
         frames = self.pipeline.wait_for_frames()
         depth_frame = frames.get_depth_frame()
@@ -99,6 +100,7 @@ class SawyerEnv():
         
         # If needed, return both images
         return images
+        depth, color = self.env.rece
       
     def step(self, action):
         # TODO : here apply the action, use go_to_cartesian 
@@ -114,7 +116,7 @@ def run_episode(policy, env):
 
 if __name__ == '__main__':
     env = SawyerEnv()
-
+    
     rospy.init_node('image_subscriber_node', anonymous = True)
     rospy.Subscriber('/camera/color/image_raw', Image, color_image_callback)
     rospy.Subscriber('/camera/aligned_depth_to_color/image_raw', Image, depth_image_callback)
