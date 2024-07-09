@@ -94,13 +94,14 @@ class SawyerEnv():
         # If depth and color resolutions are different, resize color image to match depth image for display
         if depth_colormap_dim != color_colormap_dim:
             resized_color_image = cv2.resize(color_image, dsize=(depth_colormap_dim[1], depth_colormap_dim[0]), interpolation=cv2.INTER_AREA)
-            images = np.hstack((resized_color_image, depth_colormap))
+            #images = np.hstack((resized_color_image, depth_colormap))
+            return resized_color_image, depth_colormap
         else:
-            images = np.hstack((color_image, depth_colormap))
+            #images = np.hstack((color_image, depth_colormap))
+            return color_image, depth_colormap
         
         # If needed, return both images
-        return images
-        depth, color = self.env.rece
+        #return images
       
     def step(self, action):
         # TODO : here apply the action, use go_to_cartesian 
