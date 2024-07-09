@@ -79,6 +79,8 @@ class Runner():
 
         return image_color, image_depth, gripper_pos
 
+    my_dict = {image_depth: 
+
     def get_starting_arrays(self):
         pose, orientation, image = self.get_current_state()
         pose_array, orientation_array, image_array = [], [], []
