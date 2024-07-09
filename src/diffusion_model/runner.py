@@ -62,7 +62,7 @@ class Runner():
 
         # pose = torch.tensor(list(pose)).reshape(1, -1)
         # orientation = torch.tensor(list(orientation)).reshape(1, -1)
-
+'''
         image_color = torch.from_numpy(self.camera.get_frame()).float()
         image_color = image_color.reshape(3, 640, 480)
 
@@ -74,10 +74,14 @@ class Runner():
         
         image_color = transform(image_color)
         image_depth = transform(image_depth)
+'''
+        #gripper_pos = SawyerEnv.get_bariflex_state(self)
+        gripper_pos = self.callback_fn()
+        image_color, image_depth = self.receiveImage()
 
-        gripper_pos = SawyerEnv.get_bariflex_state(self)
+        my_dict = {'image_color' : image_color, 'image_depth' : image_depth, 'gripper_pos' : gripper_pos}
 
-        return image_color, image_depth, gripper_pos
+        return my_dict
 
     my_dict = {image_depth: 
 
