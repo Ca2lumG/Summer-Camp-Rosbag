@@ -42,11 +42,17 @@ class SawyerEnv():
         rospy.Subscriber('/bariflex', String, self.callback_fn)
 
     def callback_fn(self, msg):
-        # TODO : self.bariflex_state = ...
+        # TODO : self.bariflex_state = ...  
+        
         return None
 
     def get_bariflex_state(self):
         return self.bariflex_state
+
+
+        
+        
+
 
         
 
