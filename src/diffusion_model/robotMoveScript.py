@@ -23,6 +23,10 @@ class SawyerEnv():
         self.tip_name = "right_hand"
 
         rospy.Subscriber('/bariflex',String, self.callback_fn)
+         rospy.init_node('image_subscriber_node', anonymous = True)
+        rospy.Subscriber('/camera/color/image_raw', Image, color_image_callback)
+        rospy.Subscriber('/camera/aligned_depth_to_color/image_raw', Image, depth_image_callback)
+        rospy.Subscriber('/bariflex', String, callback_fn)
 
         #self.pipeline = rs.pipeline()
         #self.config = rs.config()
@@ -43,6 +47,8 @@ class SawyerEnv():
 
     def get_bariflex_state(self):
         return self.bariflex_state
+
+        
 
     
 
